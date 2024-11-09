@@ -27,9 +27,16 @@ class Student extends Model
     }
 
     // Define the relationship with the Course model
-    public function course()
+    // public function course()
+    // {
+    //     return $this->belongsTo(Course::class, 'course_id');
+    // }
+
+    //defining M-M because of pivot table enrollments
+    public function courses()
     {
-        return $this->belongsTo(Course::class, 'course_id');
+        return $this->belongsToMany(Course::class, 'enrollments') // Specify the pivot table
+                    ->withPivot('enrollment_date', 'status', 'grade'); // Add additional fields from the pivot table
     }
 }
 

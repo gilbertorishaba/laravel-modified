@@ -62,26 +62,40 @@ public function store(Request $request)
 
 
  // In your Controller
- public function show($course_id)
- {
+//  public function show($course_id)
+//  {
 
 
-     // Get the course with enrolled students, including the pivot data
-     $course = Course::with('students')->find($course_id);
+//      // Get the course with enrolled students, including the pivot data
+//      $course = Course::with('students')->find($course_id);
 
-     if (!$course) {
-         return redirect()->route('admin.enroll')->with('error', 'Course not found');
-     }
+//      if (!$course) {
+//          return redirect()->route('admin.enroll')->with('error', 'Course not found');
+//      }
 
-     // Pass the course data to the view
-     return view('admin.show', compact('course'));
- }
+//      // Pass the course data to the view
+//      return view('admin.show', compact('course'));
+//  }
 
+public function show($courseId)
+{
+    // Eager load the students with their pivot data (enrollment_date, status, grade)
+    $course = Course::with('students')->find($courseId);
 
+    // Check if the course was found
+    if (!$course) {
+        return redirect()->back()->with('error', 'Course not found.');
+    }
 
-
-
-
-
-
+    return view('admin.show', compact('course'));
 }
+}
+
+
+
+
+
+
+
+
+
