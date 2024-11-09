@@ -61,10 +61,10 @@
                                                 @foreach ($students as $student)
                                                     <tr>
                                                         <td>{{ $student->name }}</td>
-                                                        <td>{{ $student->course->course_name }}</td>
+                                                        <!-- Check if course exists before accessing it -->
+                                                        <td>{{ $student->course ? $student->course->course_name : 'No course assigned' }}
+                                                        </td>
                                                         <td>{{ $student->created_at->format('d M, Y') }}</td>
-                                                    </tr>
-                                                    <!-- Assuming course relationship -->
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -73,6 +73,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>

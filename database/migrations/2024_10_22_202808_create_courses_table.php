@@ -33,7 +33,7 @@ class CreateCoursesTable extends Migration
     public function down()
     {
         Schema::table('courses', function (Blueprint $table) {
-            // Drop foreign key first
+
             $table->dropForeign(['admin_id']);
         });
 

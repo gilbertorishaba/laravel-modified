@@ -10,41 +10,51 @@ use Auth;
 
 class ReportController extends Controller
 {
-    public function index() {
-        // Fetch student details like name, course, and any other relevant fields
-        $students = Student::select('name', 'course_id', 'created_at')->with('course')->get();
+    /**
+     * Display a listing of the reports.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        // Fetch student details along with their enrolled courses
+        $students = Student::select('id', 'name', 'email', 'phone', 'created_at')
+                           ->with('course') // Eager load course relationship
+                           ->get();
 
-        // Fetch the number of students enrolled in each course
-        $courses = Course::pluck('course_name');  // Get all course names
-        $enrollments = Course::withCount('students')->pluck('students_count');  // Count students per course
+        // Fetch all courses and the number of students enrolled in each course
+        $courses = Course::pluck('course_name'); // Get all course names
+        $enrollments = Course::withCount('students')->pluck('students_count'); // Count students per course
 
         // Pass the data to the view
         return view('backend.reports.index', compact('students', 'courses', 'enrollments'));
     }
 
 
-
+    /**
+     * Show the form for creating a new report.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-        //fetch all courses
+        // Fetch all courses with their enrolled students
         $courses = Course::with(['students' => function ($query) {
-            // specific fields from stu table
+            // Specific fields from students table, filtering based on courses
             $query->select('students.id', 'students.name', 'students.email', 'students.profile_image_url')
-                  ->join('course_student as cs1', 'students.id', '=', 'cs1.student_id')
-                  ->join('course_student as cs2', 'students.id', '=', 'cs2.student_id')
-                  // Filter students who are enrolled in course IDs 1, 2, 3, or 4
-                  ->whereIn('cs1.course_id', [1, 2, 3, 4])
-                  ->orWhereIn('cs2.course_id', [1, 2, 3, 4]);
+                  ->join('enrollments as e', 'students.id', '=', 'e.student_id')
+                  ->join('courses as c', 'e.course_id', '=', 'c.id');
         }])->get();
-
 
         return view('backend.reports.create', compact('courses'));
     }
 
-
-
-
-
+    /**
+     * Store a newly created report in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         // Validate the form inputs
@@ -69,12 +79,25 @@ class ReportController extends Controller
         return redirect()->back()->with('success', 'Report generated successfully.');
     }
 
+    /**
+     * Show the form for editing the specified report.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
         $report = Report::findOrFail($id);
         return view('backend.reports.edit', compact('report'));
     }
 
+    /**
+     * Update the specified report in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -89,6 +112,12 @@ class ReportController extends Controller
         return redirect()->route('backend.reports.index')->with('success', 'Report updated successfully.');
     }
 
+    /**
+     * Remove the specified report from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
         $report = Report::findOrFail($id);

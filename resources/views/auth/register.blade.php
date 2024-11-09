@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from www.urbanui.com/melody/template/pages/samples/register-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Sep 2018 06:08:54 GMT -->
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Admin</title>
+    <title>Melody Admin</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../vendors/iconfonts/font-awesome/css/all.min.css">
     <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="../../vendors/css/vendor.bundle.addons.css">
     <!-- endinject -->
-    <!-- plugin css for this page -->
-    <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="../../css/style.css">
     <!-- endinject -->
@@ -33,76 +28,86 @@
                                 <img src="../../images/logo.svg" alt="logo">
                             </div>
                             <h4>New here?</h4>
-                            <h6 class="font-weight-light">Register</h6>
-                            <form class="pt-3">
+                            <h6 class="font-weight-light">Join us today! It takes only a few steps</h6>
+                            <!-- Registration Form -->
+                            <form method="POST" action="{{ route('register') }}" class="pt-3">
+                                @csrf
                                 <div class="form-group">
-                                    <label>Username</label>
+                                    <label for="username">Username</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend bg-transparent">
                                             <span class="input-group-text bg-transparent border-right-0">
                                                 <i class="fa fa-user text-primary"></i>
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control form-control-lg border-left-0"
-                                            placeholder="Username">
+                                        <input type="text" name="username"
+                                            class="form-control form-control-lg border-left-0" placeholder="Username"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Email</label>
+                                    <label for="email">Email</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend bg-transparent">
                                             <span class="input-group-text bg-transparent border-right-0">
                                                 <i class="far fa-envelope-open text-primary"></i>
                                             </span>
                                         </div>
-                                        <input type="email" class="form-control form-control-lg border-left-0"
-                                            placeholder="Email">
+                                        <input type="email" name="email"
+                                            class="form-control form-control-lg border-left-0" placeholder="Email"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Faculty</label>
-                                    <select class="form-control form-control-lg" id="exampleFormControlSelect2">
-                                        <option>Faculty</option>
-                                        <option>Faculty of Computing</option>
-                                        <option>Faculty of Business</option>
-                                        <option>Faculty of International Business</option>
-                                        <option>Faculty of Law</option>
-                                        <option>Faculty of Tourism</option>
+                                    <label for="country">Country</label>
+                                    <select class="form-control form-control-lg" id="country" name="country" required>
+                                        <option>Country</option>
+                                        <option>Uganda </option>
+                                        <option>Kenya</option>
+                                        <option>Burundi</option>
+                                        <option>Rwanda</option>
+                                        <option>Congo</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
+                                    <label for="password">Password</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend bg-transparent">
                                             <span class="input-group-text bg-transparent border-right-0">
                                                 <i class="fa fa-lock text-primary"></i>
                                             </span>
                                         </div>
-                                        <input type="password" class="form-control form-control-lg border-left-0"
-                                            id="exampleInputPassword" placeholder="Password">
+                                        <input type="password" name="password" id="password"
+                                            class="form-control form-control-lg border-left-0" placeholder="Password"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="mb-4">
                                     <div class="form-check">
                                         <label class="form-check-label text-muted">
-                                            <input type="checkbox" class="form-check-input">
+                                            <input type="checkbox" class="form-check-input" required>
                                             I agree to all Terms & Conditions
                                         </label>
                                     </div>
                                 </div>
                                 <div class="mt-3">
-                                    <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
-                                        href="../../index-2.html">SIGN UP</a>
+                                    <button type="submit"
+                                        class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+                                        SIGN UP
+                                    </button>
                                 </div>
                                 <div class="text-center mt-4 font-weight-light">
-                                    Already have an account? <a href="login.html" class="text-primary">Login</a>
+                                    Already have an account? <a href="{{ route('login') }}"
+                                        class="text-primary">Login</a>
                                 </div>
                             </form>
+                            <!-- End Registration Form -->
                         </div>
                     </div>
                     <div class="col-lg-6 register-half-bg d-flex flex-row">
-                        <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy;
-                            2024 Crafted and designed by Gilbert Orishaba.</p>
+                        <p class="text-white font-weight-medium text-center flex-grow align-self-end">
+                            Copyright &copy; 2018 All rights reserved.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -124,7 +129,5 @@
     <!-- endinject -->
 </body>
 
-
-<!-- Mirrored from www.urbanui.com/melody/template/pages/samples/register-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Sep 2018 06:08:54 GMT -->
-
 </html>
+s

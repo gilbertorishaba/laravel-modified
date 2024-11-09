@@ -60,7 +60,7 @@
                         </div>
                         <div class="list-wrapper px-3">
                             <ul class="d-flex flex-column-reverse todo-list">
-                                <!-- To-do items -->
+
                                 <li>
                                     <div class="form-check">
                                         <label class="form-check-label">
@@ -69,7 +69,7 @@
                                     </div>
                                     <i class="remove fa fa-times-circle"></i>
                                 </li>
-                                <!-- Add more to-do items here -->
+
                             </ul>
                         </div>
                     </div>
@@ -106,8 +106,6 @@
                 <div class="content-wrapper">
                     <!-- Display Course Information -->
                     <h1>Enroll Students in {{ $course->name }}</h1>
-
-                    <!-- Check if there are students already enrolled in the course -->
                     @if ($students->isEmpty())
                         <p>No students enrolled yet.</p>
                     @else
@@ -130,10 +128,15 @@
                         @endif
 
                         <div class="form-group">
-                            <label for="studentInputName">Student Name</label>
-                            <input type="text" class="form-control" id="studentInputName" name="name"
-                                placeholder="Student Name" required>
+                            <label for="student_id">Select Student:</label>
+                            <select class="form-control" name="student_id" id="student_id" required>
+                                <option value="">Select a Student</option>
+                                @foreach ($students as $student)
+                                    <option value="{{ $student->id }}">{{ $student->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
+
 
                         <div class="form-group">
                             <label for="studentInputEmail">Email</label>
@@ -141,19 +144,7 @@
                                 placeholder="Email" required>
                         </div>
 
-                        {{-- <div class="form-group">
-                            <label for="studentInputcourse">Course Enrolled</label>
-                            <select class="form-control" name="course_id" id="studentInputcourse" required>
-                                <option value="">Select a Course</option>
-                                @foreach ($course as $course)
-                                    <option value="{{ $course->id }}"
-                                        {{ old('course_id') == $course->id ? 'selected' : '' }}>
-                                        {{ $course->id }} - {{ $course->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div> --}}
-                        {{-- enrollment working code  --}}
+
                         <div class="form-group">
                             <label for="studentInputcourse">Course Enrolled</label>
                             <select class="form-control" name="course_id" id="studentInputcourse" required>
@@ -164,26 +155,13 @@
                             </select>
                         </div>
 
-                        {{-- <div class="form-group">
-                            <label for="studentInputcourse">Course Enrolled</label>
-                            <select class="form-control" name="course_id" id="studentInputcourse" required>
-                                <option value="">Select a Course</option>
-                                @foreach ($courses as $courses)
-                                    <option value="{{ $course->id }}"
-                                        {{ old('course_id') == $course->id ? 'selected' : '' }}>
-                                        {{ $course->id }} - {{ $course->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div> --}}
-
-
 
                         <div class="form-group">
                             <label for="enrollment_date">Enrollment Date</label>
                             <input type="date" class="form-control" id="enrollment_date" name="enrollment_date"
                                 required>
                         </div>
+
 
                         <div class="form-group">
                             <label for="status">Status</label>
@@ -194,16 +172,19 @@
                             </select>
                         </div>
 
+
                         <div class="form-group">
                             <label for="grade">Grade</label>
                             <input type="text" class="form-control" id="grade" name="grade"
                                 placeholder="Grade (optional)">
                         </div>
 
+
                         <div class="form-group">
                             <label for="studentInputDob">Date of Birth</label>
                             <input type="date" class="form-control" id="studentInputDob" name="dob" required>
                         </div>
+
 
                         <div class="form-group">
                             <label for="studentInputPhone">Phone Number</label>
@@ -214,6 +195,7 @@
                         <button type="button" class="btn btn-light"
                             onclick="window.location='{{ route('students.create') }}'">Cancel</button>
                     </form>
+
 
 
                     <!-- partial:partials/_footer.html -->

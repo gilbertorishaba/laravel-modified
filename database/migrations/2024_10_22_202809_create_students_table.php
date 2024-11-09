@@ -15,7 +15,7 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            // Defining the foreign key relationship with courses
+            //defining FK
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade'); // Explicit foreign key definition
             $table->string('profile_image_url')->nullable();
             $table->string('name');
@@ -24,7 +24,7 @@ class CreateStudentsTable extends Migration
             $table->date('dob');
             $table->timestamps();
 
-            // Adding an index on the course_id for performance optimization
+            //to achieve perfomance optim.
             $table->index('course_id');
         });
     }

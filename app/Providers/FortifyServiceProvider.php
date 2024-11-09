@@ -28,19 +28,31 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Bind custom actions to create, update and reset user data
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
-        RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
+        // Register the views for login and registration
+        Fortify::loginView(function () {
+            return view('auth.login'); // Ensure this view exists
+        });
 
+        Fortify::registerView(function () {
+            return view('auth.register'); // Ensure this view exists
+        });
+
+        // Rate limiting for login attempts
+        RateLimiter::for('login', function (Request $request) {
+            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
             return Limit::perMinute(5)->by($throttleKey);
         });
 
+        // Rate limiting for two-factor authentication
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
     }
 }
+

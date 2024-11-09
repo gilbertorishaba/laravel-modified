@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Course;
+use App\Models\Enrollment;
 
 class Student extends Model
 {
@@ -11,32 +14,33 @@ class Student extends Model
     protected $fillable = [
         'name',
         'email',
-        'course_id', // Single course relationship
         'phone',
         'dob',
-        'profile_image_url' // Ensure this is part of the fillable attributes
+        'profile_image_url'
     ];
 
     // Enable automatic timestamps
     public $timestamps = true;
 
-    // Accessor for profile image URL
-    public function getProfileImageUrlAttribute()
-    {
-        return $this->profile_image_url ? asset('storage/' . $this->profile_image_url) : null;
-    }
-
-    // Define the relationship with the Course model
-    // public function course()
-    // {
-    //     return $this->belongsTo(Course::class, 'course_id');
-    // }
-
-    //defining M-M because of pivot table enrollments
     public function courses()
     {
-        return $this->belongsToMany(Course::class, 'enrollments') // Specify the pivot table
-                    ->withPivot('enrollment_date', 'status', 'grade'); // Add additional fields from the pivot table
+        return $this->belongsToMany(Course::class, 'enrollments')
+                    ->withPivot('enrollment_date', 'status', 'grade');
+    }
+
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class); // Ensures a student belongs to a course
+    }
+
+
+    /**
+     * Define the one-to-many relationship with enrollments.
+     * Each student can have many enrollments.
+     */
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
     }
 }
-

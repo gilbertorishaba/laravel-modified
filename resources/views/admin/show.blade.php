@@ -14,7 +14,7 @@
                 <div class="content-wrapper">
                     <h1>Enrolled Students</h1>
 
-                    <table class="table">
+                    {{-- <table class="table">
                         <thead>
                             <tr>
                                 <th>Course Name</th>
@@ -39,7 +39,37 @@
                                 </tr>
                             @endforeach
                         </tbody>
+                    </table> --}}
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Course Name</th>
+                                <th>Student Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Enrollment Date</th>
+                                <th>Status</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($course->enrollments as $enrollment)
+                                <tr>
+                                    <td>{{ $course->course_name }}</td> <!-- Use course_name from the Course model -->
+                                    <td>{{ $enrollment->student_name }}</td>
+                                    <!-- Use student_name from the Enrollment model -->
+                                    <td>{{ $enrollment->email }}</td> <!-- Use email from the Enrollment model -->
+                                    <td>{{ $enrollment->phone }}</td> <!-- Use phone from the Enrollment model -->
+                                    <td>{{ \Carbon\Carbon::parse($enrollment->enrollment_date)->format('d-m-Y') }}</td>
+                                    <!-- Format date -->
+                                    <td>{{ ucfirst($enrollment->status) }}</td> <!-- Enrollment status -->
+                                    <td>{{ $enrollment->grade ?? 'N/A' }}</td> <!-- Grade or N/A -->
+                                </tr>
+                            @endforeach
+                        </tbody>
                     </table>
+
 
                 </div>
 

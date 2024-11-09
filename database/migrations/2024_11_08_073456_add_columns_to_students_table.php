@@ -6,17 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 class AddColumnsToStudentsTable extends Migration
 {
-    // The 'up' method is used to add new columns
+    //  add new columns
     public function up()
     {
         Schema::table('students', function (Blueprint $table) {
-            $table->date('enrollment_date')->nullable();  // Add 'enrollment_date' column
-            $table->string('status')->nullable();         // Add 'status' column
-            $table->string('grade')->nullable();          // Add 'grade' column
+            $table->date('enrollment_date')->nullable();
+            $table->string('status')->nullable();
+            $table->string('grade')->nullable();
         });
     }
 
-    // The 'down' method is used to rollback the changes made in 'up' method
+    //rollback the changes made in 'up' method
     public function down()
     {
         Schema::table('students', function (Blueprint $table) {

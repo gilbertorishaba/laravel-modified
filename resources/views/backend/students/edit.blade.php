@@ -4,51 +4,46 @@
         /* Customizing the body background and form styles */
         body {
             background-color: white;
-            /* White background for the whole page */
+
         }
 
         .card {
             background-color: white;
             border: 1px solid #007bff;
-            /* Blue border around the form card */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            /* Soft shadow for depth */
+
         }
 
         .card-title {
             color: #007bff;
-            /* Blue title color */
+
         }
 
         .btn-primary {
             background-color: #007bff;
-            /* Blue button */
             border-color: #007bff;
         }
 
         .btn-light {
             background-color: #f8f9fa;
-            /* Lighter background for the cancel button */
             color: #007bff;
-            /* Blue text for the cancel button */
+
         }
 
         .form-control {
             border: 1px solid #007bff;
-            /* Blue borders for input fields */
             background-color: #f0f9ff;
-            /* Light blue background for the input fields */
             color: #333;
         }
 
         .form-control:focus {
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-            /* Blue shadow on focus */
+
         }
 
         .page-title {
             color: #007bff;
-            /* Blue color for page title */
+
         }
     </style>
 
@@ -274,44 +269,45 @@
                                     <!-- Edit Form -->
                                     <form action="{{ route('students.update', $student->id) }}" method="POST">
                                         @csrf
-                                        @method('PUT') <!-- Since update uses PUT/PATCH -->
+                                        <!-- Since update uses PUT/PATCH -->
+                                        @method('PUT')
 
-                                        <!-- Name Field -->
+
                                         <div class="form-group">
                                             <label for="name">Name</label>
                                             <input type="text" name="name" id="name" class="form-control"
                                                 value="{{ old('name', $student->name) }}" required>
                                         </div>
 
-                                        <!-- Email Field -->
+
                                         <div class="form-group">
                                             <label for="email">Email</label>
                                             <input type="email" name="email" id="email" class="form-control"
                                                 value="{{ old('email', $student->email) }}" required>
                                         </div>
 
-                                        <!-- Course Enrolled -->
+
                                         <div class="form-group">
                                             <label for="course_enrolled">Course Enrolled</label>
                                             <input type="text" class="form-control" name="course_enrolled"
-                                                value="{{ old('course_enrolled', $student->course_enrolled) }}">
+                                                value="{{ old('course_enrolled', $student->course_enrolled) }}" readonly>
                                         </div>
 
-                                        <!-- Date of Birth -->
+
                                         <div class="form-group">
                                             <label for="dob">Date Of Birth</label>
                                             <input type="date" class="form-control" name="dob"
                                                 value="{{ old('dob', $student->dob) }}">
                                         </div>
 
-                                        <!-- Phone -->
+
                                         <div class="form-group">
                                             <label for="phone">Phone</label>
                                             <input type="tel" class="form-control" name="phone"
                                                 value="{{ old('phone', $student->phone) }}">
                                         </div>
 
-                                        <!-- Submit Button -->
+
                                         <button type="submit" class="btn btn-primary">Update Student</button>
                                     </form>
 
@@ -320,11 +316,6 @@
                         </div>
 
                     </div>
-
-
-
-
-
 
                 </div>
                 <!-- content-wrapper ends -->

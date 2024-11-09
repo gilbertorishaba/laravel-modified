@@ -258,10 +258,7 @@
                         <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Registerred Students</h4>
-                                    {{-- <p class="card-description">
-                                        Please fill in this form
-                                    </p> --}}
+                                    <h4 class="card-title">Registered Students</h4>
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="table-responsive">
@@ -271,7 +268,7 @@
                                                             <th>Profile Image</th>
                                                             <th>Student Name</th>
                                                             <th>Email</th>
-                                                            <th>Course Id</th>
+                                                            <th>Courses</th> <!-- Changed from Course Id to Courses -->
                                                             <th>Date of Birth</th>
                                                             <th>Phone</th>
                                                             <th>Actions</th> <!-- Added Actions Column -->
@@ -280,22 +277,44 @@
                                                     <tbody>
                                                         @foreach ($students as $student)
                                                             <tr>
+                                                                <!-- Profile Image -->
                                                                 <td>
-                                                                    @if ($student->image)
-                                                                        <img src="{{ asset('images/faces/face1.jpg') }}"
-                                                                            alt="Image from public directory"
-                                                                            style="width: 50px; height: 50px;">
+                                                                    @if ($student->profile_image_url)
+                                                                        <img src="{{ asset('storage/' . $student->profile_image_url) }}"
+                                                                            alt="Student Image"
+                                                                            style="width: 50px; height: 50px; border-radius: 50%;">
                                                                     @else
                                                                         <p>No image available</p>
                                                                     @endif
                                                                 </td>
+
+                                                                <!-- Student Name -->
                                                                 <td>{{ $student->name }}</td>
+
+                                                                <!-- Email -->
                                                                 <td>{{ $student->email }}</td>
-                                                                <td>{{ $student->course_id }}</td>
+
+                                                                <!-- Courses: Displaying associated course names instead of IDs -->
+                                                                <td>
+                                                                    @if ($student->courses->count() > 0)
+                                                                        <ul>
+                                                                            @foreach ($student->courses as $course)
+                                                                                <li>{{ $course->name }}</li>
+                                                                                <!-- Display the course name -->
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    @else
+                                                                        <p>No courses enrolled</p>
+                                                                    @endif
+                                                                </td>
+
+                                                                <!-- Date of Birth -->
                                                                 <td>{{ $student->dob }}</td>
+
+                                                                <!-- Phone -->
                                                                 <td>{{ $student->phone }}</td>
 
-                                                                <!-- Added Action Buttons for Edit and Delete -->
+                                                                <!-- Action Buttons (Edit & Delete) -->
                                                                 <td>
                                                                     <!-- Edit Button -->
                                                                     <a href="{{ route('students.edit', $student->id) }}"
@@ -324,7 +343,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
 
@@ -332,14 +350,28 @@
 
 
 
+
+
                 </div>
-                <!-- content-wrapper ends -->
-                <!-- partial:partials/_footer.html -->
-                @include('backend.layouts.footer')
-                <!-- partial -->
             </div>
         </div>
-        <!-- main-panel ends -->
+
+
+
+
+
+
+
+
+
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:partials/_footer.html -->
+    @include('backend.layouts.footer')
+    <!-- partial -->
+    </div>
+    </div>
+    <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
     </div>
