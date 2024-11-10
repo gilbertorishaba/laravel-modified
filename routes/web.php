@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\SettingsController;
 
 //default route
     Route::get('/', function () {
@@ -66,7 +67,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
     Route::middleware(['auth', 'admin'])->group(function () {
 
-    Route::get('/admin/show/{course}', [EnrollmentController::class, 'show'])->name('admin.show');
+    Route::get('/show/{course}', [EnrollmentController::class, 'show'])->name('admin.show');
     Route::get('/admin/enroll', [EnrollmentController::class, 'showEnrollmentForm'])->name('admin.enroll');
     Route::post('/admin/enroll', [EnrollmentController::class, 'store'])->name('admin.store');
 
@@ -83,6 +84,9 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
+//setting routes
+    Route::middleware('auth')->get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+    Route::middleware('auth')->post('/settings', [SettingsController::class, 'update'])->name('settings.update');
 
 
 

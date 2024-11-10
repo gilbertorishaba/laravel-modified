@@ -32,19 +32,27 @@
                             <!-- Registration Form -->
                             <form method="POST" action="{{ route('register') }}" class="pt-3">
                                 @csrf
+                                <!-- Name Field -->
                                 <div class="form-group">
-                                    <label for="username">Username</label>
+                                    <label for="username">Name</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend bg-transparent">
                                             <span class="input-group-text bg-transparent border-right-0">
                                                 <i class="fa fa-user text-primary"></i>
                                             </span>
                                         </div>
-                                        <input type="text" name="username"
-                                            class="form-control form-control-lg border-left-0" placeholder="Username"
-                                            required>
+                                        <input type="text" name="name"
+                                            class="form-control form-control-lg border-left-0 @error('name') is-invalid @enderror"
+                                            placeholder="name" required>
                                     </div>
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
+
+                                <!-- Email Field -->
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <div class="input-group">
@@ -54,21 +62,35 @@
                                             </span>
                                         </div>
                                         <input type="email" name="email"
-                                            class="form-control form-control-lg border-left-0" placeholder="Email"
-                                            required>
+                                            class="form-control form-control-lg border-left-0 @error('email') is-invalid @enderror"
+                                            placeholder="Email" required>
                                     </div>
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
+
+                                <!-- Faculty Field -->
                                 <div class="form-group">
-                                    <label for="country">Country</label>
-                                    <select class="form-control form-control-lg" id="country" name="country" required>
-                                        <option>Country</option>
-                                        <option>Uganda </option>
-                                        <option>Kenya</option>
-                                        <option>Burundi</option>
-                                        <option>Rwanda</option>
-                                        <option>Congo</option>
+                                    <label for="faculty">Faculty</label>
+                                    <select class="form-control form-control-lg" id="faculty" name="faculty" required>
+                                        <option>Faculty of Computing</option>
+                                        <option>Faculty of Commerce</option>
+                                        <option>Faculty of International Business</option>
+                                        <option>Faculty of Law</option>
+                                        <option>Faculty of Tourism and Hospitality Management</option>
+                                        <option>Faculty of Agriculture</option>
                                     </select>
+                                    @error('faculty')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
+
+                                <!-- Password Field -->
                                 <div class="form-group">
                                     <label for="password">Password</label>
                                     <div class="input-group">
@@ -78,10 +100,17 @@
                                             </span>
                                         </div>
                                         <input type="password" name="password" id="password"
-                                            class="form-control form-control-lg border-left-0" placeholder="Password"
-                                            required>
+                                            class="form-control form-control-lg border-left-0 @error('password') is-invalid @enderror"
+                                            placeholder="Password" required>
                                     </div>
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
+
+                                <!-- Terms & Conditions Checkbox -->
                                 <div class="mb-4">
                                     <div class="form-check">
                                         <label class="form-check-label text-muted">
@@ -90,23 +119,28 @@
                                         </label>
                                     </div>
                                 </div>
+
+                                <!-- Submit Button -->
                                 <div class="mt-3">
                                     <button type="submit"
                                         class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
                                         SIGN UP
                                     </button>
                                 </div>
+
+                                <!-- Link to Login Page -->
                                 <div class="text-center mt-4 font-weight-light">
                                     Already have an account? <a href="{{ route('login') }}"
                                         class="text-primary">Login</a>
                                 </div>
                             </form>
+
                             <!-- End Registration Form -->
                         </div>
                     </div>
                     <div class="col-lg-6 register-half-bg d-flex flex-row">
                         <p class="text-white font-weight-medium text-center flex-grow align-self-end">
-                            Copyright &copy; 2018 All rights reserved.
+                            Copyright &copy; Designed & crafted by Gilbert Orishaba.
                         </p>
                     </div>
                 </div>

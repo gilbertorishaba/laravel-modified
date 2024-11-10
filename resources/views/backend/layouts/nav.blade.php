@@ -50,6 +50,7 @@
                     </div>
                 </div>
             </li>
+            <!-- Notification Dropdown -->
             <li class="nav-item dropdown">
                 <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
                     data-toggle="dropdown">
@@ -85,7 +86,9 @@
                             </div>
                         </div>
                         <div class="preview-item-content">
-                            <h6 class="preview-subject font-weight-medium">Settings</h6>
+                            <a href="{{ route('settings.index') }}" class="list-group-item list-group-item-action">
+                                Settings
+                            </a>
                             <p class="font-weight-light small-text">
                                 Private message
                             </p>
@@ -107,6 +110,7 @@
                     </a>
                 </div>
             </li>
+            <!-- Message Dropdown -->
             <li class="nav-item dropdown">
                 <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#"
                     data-toggle="dropdown" aria-expanded="false">
@@ -127,7 +131,7 @@
                         </div>
                         <div class="preview-item-content flex-grow">
                             <h6 class="preview-subject ellipsis font-weight-medium">David Grey
-                                <span class="float-right font-weight-light small-text">1 Minutes ago</span>
+                                <span class="float-right font-weight-light small-text">1 Minute ago</span>
                             </h6>
                             <p class="font-weight-light small-text">
                                 The meeting is cancelled
@@ -164,6 +168,7 @@
                     </a>
                 </div>
             </li>
+            <!-- Profile Dropdown -->
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                     <img src="images/faces/face5.jpg" alt="profile" />
@@ -180,15 +185,23 @@
                     </a>
                 </div>
             </li>
-            <li class="nav-item nav-settings d-none d-lg-block">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-ellipsis-h"></i>
+            <!-- Settings Icon for smaller screens -->
+            <li class="nav-item d-lg-none">
+                <a class="nav-link" href="#" data-toggle="dropdown" id="settingsDropdown">
+                    <i class="fas fa-cog"></i>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="settingsDropdown">
+                    <a class="dropdown-item">
+                        <i class="fas fa-cog text-primary"></i>
+                        Settings
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item">
+                        <i class="fas fa-power-off text-primary"></i>
+                        Logout
+                    </a>
+                </div>
             </li>
         </ul>
-        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-            data-toggle="offcanvas">
-            <span class="fas fa-bars"></span>
-        </button>
     </div>
 </nav>
